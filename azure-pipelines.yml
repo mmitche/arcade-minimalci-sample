@@ -2,8 +2,7 @@ variables:
   Build.Repository.Clean: true
   _HelixType: build/product
   _HelixSource: pr/dotnet/arcade-minimalci-sample/$(Build.SourceBranch)
-  _enableTelemetry: true
-
+ 
 resources:
   containers:
   - container: LinuxContainer
@@ -21,7 +20,7 @@ phases:
 - template: /eng/common/templates/phases/base.yml
   parameters:
     name: Windows_NT
-    enableTelemetry: $(_enableTelemetry)
+    enableTelemetry: true
     queue:
       name: dotnet-external-temp
       parallel: 99
