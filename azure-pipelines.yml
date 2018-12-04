@@ -1,10 +1,6 @@
 variables:
 - name: Build.Repository.Clean
   value: true
-- name: _HelixType
-  value: build/product
-- name: _HelixSource
-  value: pr/dotnet/arcade-minimalci-sample/$(Build.SourceBranch)
  
 resources:
   containers:
@@ -23,6 +19,7 @@ jobs:
   parameters:
     name: Windows_NT
     enableTelemetry: true
+    helixRepo: dotnet/arcade-minimalci-sample
     pool:
       name: NetCorePublic-Int-Pool
       queue: Windows.10.Amd64.Open
@@ -55,6 +52,7 @@ jobs:
   parameters:
     name: OSX
     enableTelemetry: true
+    helixRepo: dotnet/arcade-minimalci-sample
     pool:
       name: NetCorePublic-Int-Pool
       queue: OSX.1012.Amd64.Open
@@ -87,6 +85,7 @@ jobs:
   parameters:
     name: Linux
     enableTelemetry: true
+    helixRepo: dotnet/arcade-minimalci-sample
     pool:
       name: Hosted Ubuntu 1604
     container: LinuxContainer
