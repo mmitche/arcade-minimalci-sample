@@ -19,6 +19,7 @@ jobs:
   parameters:
     name: Windows_NT
     enableTelemetry: true
+    enablePublishBuildArtifacts: true
     helixRepo: dotnet/arcade-minimalci-sample
     pool:
       name: NetCorePublic-Int-Pool
@@ -36,22 +37,12 @@ jobs:
       name: Build
       displayName: Build
       condition: succeeded()
-    - task: PublishBuildArtifacts@1
-      displayName: Publish Logs to VSTS
-      inputs:
-        PathtoPublish: '$(Build.SourcesDirectory)/artifacts/log/$(_BuildConfig)'
-        PublishLocation: Container
-        ArtifactName: $(Agent.Os)_$(Agent.JobName)
-      continueOnError: true
-      condition: always()
-    variables:
-    - name: _HelixBuildConfig
-      value: $(_BuildConfig)
 
 - template: /eng/common/templates/job/job.yml
   parameters:
     name: OSX
     enableTelemetry: true
+    enablePublishBuildArtifacts: true
     helixRepo: dotnet/arcade-minimalci-sample
     pool:
       name: NetCorePublic-Int-Pool
@@ -69,22 +60,12 @@ jobs:
       name: Build
       displayName: Build
       condition: succeeded()
-    - task: PublishBuildArtifacts@1
-      displayName: Publish Logs to VSTS
-      inputs:
-        PathtoPublish: '$(Build.SourcesDirectory)/artifacts/log/$(_BuildConfig)'
-        PublishLocation: Container
-        ArtifactName: $(Agent.Os)_$(Agent.JobName)
-      continueOnError: true
-      condition: always()
-    variables:
-    - name: _HelixBuildConfig
-      value: $(_BuildConfig)
 
 - template: /eng/common/templates/job/job.yml
   parameters:
     name: Linux
     enableTelemetry: true
+    enablePublishBuildArtifacts: true
     helixRepo: dotnet/arcade-minimalci-sample
     pool:
       name: Hosted Ubuntu 1604
@@ -102,14 +83,3 @@ jobs:
       name: Build
       displayName: Build
       condition: succeeded()
-    - task: PublishBuildArtifacts@1
-      displayName: Publish Logs to VSTS
-      inputs:
-        PathtoPublish: '$(Build.SourcesDirectory)/artifacts/log/$(_BuildConfig)'
-        PublishLocation: Container
-        ArtifactName: $(Agent.Os)_$(Agent.JobName)
-      continueOnError: true
-      condition: always()
-    variables:
-    - name: _HelixBuildConfig
-      value: $(_BuildConfig)
