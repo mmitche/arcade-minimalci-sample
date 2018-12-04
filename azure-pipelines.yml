@@ -11,19 +11,18 @@ resources:
 trigger:
 - master
 
-# To be added in the future when VSTS supports this feature
-# pr:
-# - master
+pr:
+- master
 
-# Three phases for each of the three OSes we want to run on
-phases:
-- template: /eng/common/templates/phases/base.yml
+jobs:
+- template: /eng/common/templates/job/job.yml
   parameters:
     name: Windows_NT
     enableTelemetry: true
-    queue:
-      name: dotnet-external-temp
-      parallel: 99
+    pool:
+      name: NetCorePublic-Int-Pool
+      queue: Windows.10.Amd64.Open
+    strategy:
       matrix:
         debug_configuration:
           _BuildConfig: Debug
@@ -47,13 +46,14 @@ phases:
     variables:
       _HelixBuildConfig: $(_BuildConfig)
 
-- template: /eng/common/templates/phases/base.yml
+- template: /eng/common/templates/job/job.yml
   parameters:
     name: OSX
     enableTelemetry: true
-    queue:
-      name: Hosted macOS Preview
-      parallel: 99
+    pool:
+      name: NetCorePublic-Int-Pool
+      queue: OSX.1012.Amd64.Open
+    strategy:
       matrix:
         debug_configuration:
           _BuildConfig: Debug
@@ -77,14 +77,14 @@ phases:
     variables:
       _HelixBuildConfig: $(_BuildConfig)
 
-- template: /eng/common/templates/phases/base.yml
+- template: /eng/common/templates/job/job.yml
   parameters:
     name: Linux
     enableTelemetry: true
-    queue:
+    pool:
       name: Hosted Ubuntu 1604
-      parallel: 99
-      container: LinuxContainer
+    container: LinuxContainer
+    strategy:
       matrix:
         debug_configuration:
           _BuildConfig: Debug
