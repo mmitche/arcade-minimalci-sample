@@ -1,7 +1,10 @@
 variables:
-  Build.Repository.Clean: true
-  _HelixType: build/product
-  _HelixSource: pr/dotnet/arcade-minimalci-sample/$(Build.SourceBranch)
+- name: Build.Repository.Clean
+  value: true
+- name: _HelixType
+  value: build/product
+- name: _HelixSource
+  value: pr/dotnet/arcade-minimalci-sample/$(Build.SourceBranch)
  
 resources:
   containers:
@@ -45,7 +48,8 @@ jobs:
       continueOnError: true
       condition: always()
     variables:
-      _HelixBuildConfig: $(_BuildConfig)
+    - name: _HelixBuildConfig
+      value: $(_BuildConfig)
 
 - template: /eng/common/templates/job/job.yml
   parameters:
@@ -76,7 +80,8 @@ jobs:
       continueOnError: true
       condition: always()
     variables:
-      _HelixBuildConfig: $(_BuildConfig)
+    - name: _HelixBuildConfig
+      value: $(_BuildConfig)
 
 - template: /eng/common/templates/job/job.yml
   parameters:
@@ -107,4 +112,5 @@ jobs:
       continueOnError: true
       condition: always()
     variables:
-      _HelixBuildConfig: $(_BuildConfig)
+    - name: _HelixBuildConfig
+      value: $(_BuildConfig)
